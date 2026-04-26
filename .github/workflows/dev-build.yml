@@ -1,14 +1,14 @@
-name: Production Release
+name: Dev Build & Push
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [ main ]
 jobs:
-  release:
+  build:
     permissions:
       contents: read
       packages: write
       security-events: write
-    uses: VK-Paints/vkpaints-workflow/.github/workflows/build-push-release.yml@main
+    uses: VK-Paints/vkpaints-workflow/.github/workflows/build-push-dev.yml@main
     with:
       service_name: quotation-service
     secrets: inherit

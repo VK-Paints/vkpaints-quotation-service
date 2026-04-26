@@ -1,17 +1,21 @@
 const express = require('express');
+const cors = require('cors');
+const quotationRoutes = require('./src/routes/quotation.routes');
 
 const app = express();
+const PORT = process.env.PORT || 3003;
+
+app.use(cors());
 app.use(express.json());
 
-app.post('/', (req, res) => {
-    const { area, price_per_liter, coverage } = req.body;
-    if (!area || !price_per_liter || !coverage) {
-        return res.status(400).json({ error: 'Missing parameters' });
-    }
-    const liters_required = Math.ceil(area / coverage);
-    const total_cost = liters_required * price_per_liter;
-    
-    res.json({ liters_required, total_cost });
+// Routes
+app.use('/api/quotations', quotationRoutes);
+
+// Health Check
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
 });
 
-app.listen(process.env.PORT || 3003, () => console.log('Quotation Service running'));
+app.listen(PORT, () => {
+  console.log(`🚀 Quotation Service running on port ${PORT}`);
+});

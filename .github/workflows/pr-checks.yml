@@ -1,0 +1,10 @@
+name: PR Security Scans
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  scans:
+    uses: VK-Paints/vkpaints-workflow/.github/workflows/pr-scans.yml@main
+    with:
+      service_name: quotation-service
+    secrets: inherit
